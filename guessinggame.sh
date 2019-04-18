@@ -1,25 +1,31 @@
-number_of_files=$(ls | wc -l)
+#!/usr/bin/env bash
+# File: guessinggame.sh
 
+number_of_files=$(ls | wc -l)
 echo  "Please, guess how many files are in current directory and type the number"
-read response
-while  [[ ! $response =~ ^[-,0-9][0-9]*$ ]]
-do
-echo "You did not type a number"
-echo  "Please, guess how many files are in current directory  and type the number"
-read response
-done
+
+
+function promptcall {
+ read response
+ while  [[ ! $response =~ ^[-,0-9][0-9]*$ ]]
+ do
+  echo "You did not type a number. Please type a valid number"
+  read response
+ done
+}
+
+promptcall
 
 while [[ $response -ne $number_of_files ]]
 do 
   if [[ $response -lt $number_of_files ]]
   then
-   echo "You number is smaller than number of files"
+   echo "Your number is too small"
   else
-   echo "You number is bigger than number of files"
+   echo "Your number is too big"
   fi
-echo  "Please, guess how many files are in current directory  and type the number"
-read response
-
+promptcall
 done
 
+echo " Congratulations !!!"
 echo  "You finally guessed it right :$number_of_files"
